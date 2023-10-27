@@ -50,7 +50,3 @@ runs:
         # `pytest -r`
         # Default: fEX
         display-options: fEX
-
-        # Fail the workflow if no JUnit XML was found.
-        # Default: true
-        fail-on-empty: true
