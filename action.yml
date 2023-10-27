@@ -1,0 +1,56 @@
+name: 'Streamlit App Actions'
+description: 'Simple workflows for validating a Streamlit app'
+inputs:
+  app-path:
+    description: 'Filepath to the main app file (`streamlit run <this>`)'
+    required: false
+    default: 'streamlit_app.py'
+  python-version:
+    description: 'Python version to use for runs'
+    required: false
+    default: '3.10'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install dependencies
+      # TODO: make the dependency install configurable
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Lint with ruff
+      uses: chartboost/ruff-action@v1
+    - name: Test with pytest
+      run: |
+        cp $GITHUB_ACTION_PATH/*.py .
+        pytest -v --junit-xml=test-results.xml
+      env:
+        APP_PATH: ${{ inputs.app-path }}
+    - name: Surface failing tests
+      if: always()
+      # TODO: This is BSD3 license, also has low stars, confirm if we should use it
+      uses: pmeier/pytest-results-action@main
+      with:
+        # A list of JUnit XML files, directories containing the former, and wildcard
+        # patterns to process.
+        # See @actions/glob for supported patterns.
+        path: test-results.xml
+
+        # Add a summary of the results at the top of the report
+        # Default: true
+        summary: true
+
+        # Select which results should be included in the report.
+        # Follows the same syntax as
+        # `pytest -r`
+        # Default: fEX
+        display-options: fEX
+
+        # Fail the workflow if no JUnit XML was found.
+        # Default: true
+        fail-on-empty: true
