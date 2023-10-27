@@ -28,7 +28,8 @@ runs:
     - name: Test with pytest
       shell: bash
       run: |
-        cp $GITHUB_ACTION_PATH/*.py .
+        cp $GITHUB_ACTION_PATH/st_smoke_test.py .
+        ls
         pytest -v --junit-xml=test-results.xml
       env:
         APP_PATH: ${{ inputs.app-path }}
