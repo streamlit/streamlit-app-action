@@ -10,6 +10,13 @@ Github Action for basic validating Streamlit app. This action will:
 
 ## Usage
 
+Use the action by creating a `.yml` file in the `.github/workflows/` folder of your GitHub repository with contents
+like the example below. This specific example will run the ruff linting and smoke testing action each time there's
+a push to the `main` branch or a pull request update targeting main.
+
+You can learn more in the [GitHub Actions documentation](https://docs.github.com/en/actions) and the section on
+[GitHub Actions workflows](https://docs.github.com/en/actions/using-workflows/about-workflows).
+
 ```yml
 name: Streamlit app
 
