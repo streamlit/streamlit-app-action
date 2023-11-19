@@ -37,7 +37,7 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: '3.11'
-      - uses: streamlit/streamlit-app-action@v0
+      - uses: streamlit/streamlit-app-action@v0.0.1
         with:
           app-path: streamlit_app.py
           ruff: true
@@ -50,7 +50,7 @@ to print the output of pytest runs in your GitHub Actions workflow summary view.
 
 ```yml
 # ... setup as above ...
-- uses: streamlit/streamlit-app-action@v0
+- uses: streamlit/streamlit-app-action@v0.0.1
   with:
     app-path: streamlit_app.py
     ruff: true
