@@ -1,8 +1,6 @@
 import os
-
-from pathlib import Path
-
 import unittest
+from pathlib import Path
 
 from streamlit.testing.v1 import AppTest
 
@@ -13,10 +11,10 @@ SKIP_SMOKE = os.getenv("SKIP_SMOKE", "False").lower() in ("true", "1", "t")
 def get_file_paths() -> list[str]:
     page_folder = Path(APP_PATH).parent / "pages"
     if not page_folder.exists():
-        return []
+        return [APP_PATH]
     page_files = page_folder.glob("*.py")
     file_paths = [str(file.absolute().resolve()) for file in page_files]
-    return file_paths
+    return [APP_PATH] + file_paths
 
 
 def pytest_generate_tests(metafunc):
@@ -33,12 +31,6 @@ def pytest_generate_tests(metafunc):
 
 
 @unittest.skipIf(SKIP_SMOKE, "smoke test is disabled by config")
-def test_smoke_main():
-    at = AppTest.from_file(APP_PATH, default_timeout=100).run()
-    assert not at.exception
-
-
-@unittest.skipIf(SKIP_SMOKE, "smoke test is disabled by config")
-def test_smoke_pages(file_path):
+def test_smoke_page(file_path):
     at = AppTest.from_file(file_path, default_timeout=100).run()
     assert not at.exception
