@@ -1,6 +1,6 @@
 # streamlit-app-action
 
-Github Action for basic validating Streamlit app. This action will:
+Github Action providing simple workflows for validating a Streamlit app. This action will:
 
 - Run `pytest` for any tests, including [Streamlit AppTests](https://docs.streamlit.io/library/api-reference/app-testing),
   that are part of your repo.
