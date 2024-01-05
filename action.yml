@@ -1,5 +1,5 @@
-name: 'Streamlit App Actions'
-description: 'Simple workflows for validating a Streamlit app'
+name: 'Streamlit App Action'
+description: 'Validate a Streamlit app with smoke tests and linting'
 branding:
   icon: 'book'
   color: 'blue'
