@@ -33,11 +33,11 @@ jobs:
   streamlit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - uses: streamlit/streamlit-app-action@v0.0.1
+      - uses: streamlit/streamlit-app-action@v0.0.3
         with:
           app-path: streamlit_app.py
           ruff: true
@@ -50,14 +50,14 @@ to print the output of pytest runs in your GitHub Actions workflow summary view.
 
 ```yml
 # ... setup as above ...
-- uses: streamlit/streamlit-app-action@v0.0.1
+- uses: streamlit/streamlit-app-action@v0.0.3
   with:
     app-path: streamlit_app.py
     ruff: true
     # Add pytest-args to output junit xml
     pytest-args: -v --junit-xml=test-results.xml
 - if: always()
-  uses: pmeier/pytest-results-action@main
+  uses: pmeier/pytest-results-action@v0.6.0
   with:
     path: test-results.xml
     summary: true
