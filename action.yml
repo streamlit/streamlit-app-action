@@ -34,7 +34,7 @@ runs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - if: ${{ inputs.ruff == 'true' }}
       name: Lint with ruff
-      uses: chartboost/ruff-action@v1
+      uses: astral-sh/ruff-action@v3
       # TODO: Add ability to define example secrets.toml values for smoke test
     - name: Test with pytest
       shell: bash
